@@ -1,31 +1,23 @@
 import 'package:flutter/material.dart';
-import 'screens/assignment_manager_screen.dart';
+import 'screens/login.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ALUApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class ALUApp extends StatelessWidget {
+  const ALUApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Student Academic Platform',
+      title: 'ALU Student Assistant',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF003366), // ALU Navy
-          primary: const Color(0xFF003366),
-          secondary: const Color(0xFFFFCC00), // ALU Gold
-        ),
-        useMaterial3: true,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF003366),
-          foregroundColor: Colors.white,
-        ),
+        primaryColor: const Color(0xFF1B2C5C),
+        scaffoldBackgroundColor: const Color(0xFF1B2C5C),
       ),
-      home: const AssignmentManagerScreen(),
+      home: const LoginScreen(),
     );
   }
 }
