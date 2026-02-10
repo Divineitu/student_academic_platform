@@ -402,7 +402,7 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
               Expanded(
                 child: Row(
                   children: [
-                    Checkbox(
+                    Switch(
                       value: session.isPresent,
                       onChanged: (value) {
                         session.isPresent = value!;
