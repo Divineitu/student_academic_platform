@@ -421,11 +421,11 @@ if (sessionsJson != null) {
 
 **Visible Contributions:**
 All team members have contributed to the project with clear commit history:
-- Divine Okon Itu - [Contribution area]
-- Jongkuch Isaac Chol Anyar - [Contribution area]
-- Julie Isaro - [Contribution area]
-- Mahlet Assefa Tilahun - Scheduling screen implementation
-- Rwema Gisa - [Contribution area]
+- **Divine Okon Itu** - Project Lead → Navigation & GitHub setup
+- **Jongkuch Isaac Chol Anyar** - Dashboard & Attendance logic
+- **Julie Isaro** - Assignment management system
+- **Mahlet Assefa Tilahun** - Scheduling & calendar features
+- **Rwema Gisa** - Documentation & coordination
 
 **Contribution Tracker:**
 We maintain a detailed contribution tracker (as required) documenting:
@@ -809,7 +809,6 @@ For questions or issues:
 **Version**: 1.0.0  
 **Last Updated**: February 2026  
 **Flutter Version**: 3.10.0  
-**Status**: Active Development
 
 ---
 
