@@ -29,7 +29,10 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
     final locationController = TextEditingController();
     DateTime selectedDate = DateTime.now();
     TimeOfDay startTime = TimeOfDay.now();
-    TimeOfDay endTime = TimeOfDay(hour: TimeOfDay.now().hour + 1, minute: TimeOfDay.now().minute);
+    TimeOfDay endTime = TimeOfDay(
+      hour: TimeOfDay.now().hour + 1,
+      minute: TimeOfDay.now().minute,
+    );
     String selectedType = 'Class';
 
     showDialog(
@@ -37,7 +40,10 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
       builder: (context) => StatefulBuilder(
         builder: (context, setDialogState) => AlertDialog(
           backgroundColor: const Color(0xFF1B2C5C),
-          title: const Text('Add Session', style: TextStyle(color: Colors.white)),
+          title: const Text(
+            'Add Session',
+            style: TextStyle(color: Colors.white),
+          ),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -67,24 +73,31 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel', style: TextStyle(color: Colors.white70)),
+              child: const Text(
+                'Cancel',
+                style: TextStyle(color: Colors.white70),
+              ),
             ),
             ElevatedButton(
               onPressed: () {
                 if (titleController.text.isNotEmpty) {
-                  widget.onAdd(Session(
-                    id: DateTime.now().toString(),
-                    title: titleController.text,
-                    date: DateFormat('MMM dd, yyyy').format(selectedDate),
-                    startTime: startTime.format(context),
-                    endTime: endTime.format(context),
-                    location: locationController.text,
-                    sessionType: selectedType,
-                  ));
+                  widget.onAdd(
+                    Session(
+                      id: DateTime.now().toString(),
+                      title: titleController.text,
+                      date: DateFormat('MMM dd, yyyy').format(selectedDate),
+                      startTime: startTime.format(context),
+                      endTime: endTime.format(context),
+                      location: locationController.text,
+                      sessionType: selectedType,
+                    ),
+                  );
                   Navigator.pop(context);
                 }
               },
-              style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFFFB800)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFFFB800),
+              ),
               child: const Text('Add', style: TextStyle(color: Colors.white)),
             ),
           ],
@@ -106,7 +119,10 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
       builder: (context) => StatefulBuilder(
         builder: (context, setDialogState) => AlertDialog(
           backgroundColor: const Color(0xFF1B2C5C),
-          title: const Text('Edit Session', style: TextStyle(color: Colors.white)),
+          title: const Text(
+            'Edit Session',
+            style: TextStyle(color: Colors.white),
+          ),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -136,23 +152,30 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel', style: TextStyle(color: Colors.white70)),
+              child: const Text(
+                'Cancel',
+                style: TextStyle(color: Colors.white70),
+              ),
             ),
             ElevatedButton(
               onPressed: () {
-                widget.onUpdate(Session(
-                  id: session.id,
-                  title: titleController.text,
-                  date: DateFormat('MMM dd, yyyy').format(selectedDate),
-                  startTime: startTime.format(context),
-                  endTime: endTime.format(context),
-                  location: locationController.text,
-                  sessionType: selectedType,
-                  isPresent: session.isPresent,
-                ));
+                widget.onUpdate(
+                  Session(
+                    id: session.id,
+                    title: titleController.text,
+                    date: DateFormat('MMM dd, yyyy').format(selectedDate),
+                    startTime: startTime.format(context),
+                    endTime: endTime.format(context),
+                    location: locationController.text,
+                    sessionType: selectedType,
+                    isPresent: session.isPresent,
+                  ),
+                );
                 Navigator.pop(context);
               },
-              style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFFFB800)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFFFB800),
+              ),
               child: const Text('Save', style: TextStyle(color: Colors.white)),
             ),
           ],
@@ -180,8 +203,20 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
       return CalendarEventData(
         title: session.title,
         date: date,
-        startTime: DateTime(date.year, date.month, date.day, start.hour, start.minute),
-        endTime: DateTime(date.year, date.month, date.day, end.hour, end.minute),
+        startTime: DateTime(
+          date.year,
+          date.month,
+          date.day,
+          start.hour,
+          start.minute,
+        ),
+        endTime: DateTime(
+          date.year,
+          date.month,
+          date.day,
+          end.hour,
+          end.minute,
+        ),
         description: '${session.sessionType} - ${session.location}',
         color: const Color(0xFFFFB800),
       );
@@ -198,7 +233,10 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
         title: const Text('Schedule', style: TextStyle(color: Colors.white)),
         actions: [
           IconButton(
-            icon: Icon(showCalendar ? Icons.list : Icons.calendar_month, color: Colors.white),
+            icon: Icon(
+              showCalendar ? Icons.list : Icons.calendar_month,
+              color: Colors.white,
+            ),
             onPressed: () => setState(() => showCalendar = !showCalendar),
           ),
         ],
@@ -230,9 +268,7 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
         ),
         weekDayBuilder: (day) => Container(
           padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.white24),
-          ),
+          decoration: BoxDecoration(border: Border.all(color: Colors.white24)),
           child: Text(
             DateFormat('EEE\nd').format(day),
             textAlign: TextAlign.center,
@@ -265,9 +301,19 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.calendar_today, size: 80, color: Colors.white.withOpacity(0.3)),
+            Icon(
+              Icons.calendar_today,
+              size: 80,
+              color: Colors.white.withAlpha(77),
+            ),
             const SizedBox(height: 16),
-            Text('No sessions yet', style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 18)),
+            Text(
+              'No sessions yet',
+              style: TextStyle(
+                color: Colors.white.withAlpha(128),
+                fontSize: 18,
+              ),
+            ),
           ],
         ),
       );
@@ -276,7 +322,8 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: widget.sessions.length,
-      itemBuilder: (context, index) => _buildSessionCard(widget.sessions[index]),
+      itemBuilder: (context, index) =>
+          _buildSessionCard(widget.sessions[index]),
     );
   }
 
@@ -285,7 +332,7 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
+        color: Colors.white.withAlpha(26),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -297,10 +344,29 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(session.title, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                    Text(
+                      session.title,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     const SizedBox(height: 4),
-                    Text('${session.startTime} - ${session.endTime}', style: const TextStyle(color: Colors.white70, fontSize: 14)),
-                    Text(session.date, style: const TextStyle(color: Color(0xFFFFB800), fontSize: 14)),
+                    Text(
+                      '${session.startTime} - ${session.endTime}',
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 14,
+                      ),
+                    ),
+                    Text(
+                      session.date,
+                      style: const TextStyle(
+                        color: Color(0xFFFFB800),
+                        fontSize: 14,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -310,7 +376,10 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
                   color: const Color(0xFFFFB800),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Text(session.sessionType, style: const TextStyle(color: Colors.white, fontSize: 12)),
+                child: Text(
+                  session.sessionType,
+                  style: const TextStyle(color: Colors.white, fontSize: 12),
+                ),
               ),
             ],
           ),
@@ -320,7 +389,10 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
               children: [
                 const Icon(Icons.location_on, color: Colors.white70, size: 16),
                 const SizedBox(width: 4),
-                Text(session.location, style: const TextStyle(color: Colors.white70, fontSize: 12)),
+                Text(
+                  session.location,
+                  style: const TextStyle(color: Colors.white70, fontSize: 12),
+                ),
               ],
             ),
           ],
@@ -338,7 +410,10 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
                       },
                       activeColor: const Color(0xFF4CAF50),
                     ),
-                    const Text('Present', style: TextStyle(color: Colors.white70)),
+                    const Text(
+                      'Present',
+                      style: TextStyle(color: Colors.white70),
+                    ),
                   ],
                 ),
               ),
@@ -365,13 +440,17 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
         labelText: label,
         labelStyle: const TextStyle(color: Colors.white70),
         filled: true,
-        fillColor: Colors.white.withOpacity(0.1),
+        fillColor: Colors.white.withAlpha(26),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
       ),
     );
   }
 
-  Widget _buildDatePicker(BuildContext context, DateTime selectedDate, Function(DateTime) onDateSelected) {
+  Widget _buildDatePicker(
+    BuildContext context,
+    DateTime selectedDate,
+    Function(DateTime) onDateSelected,
+  ) {
     return InkWell(
       onTap: () async {
         final date = await showDatePicker(
@@ -385,13 +464,16 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.1),
+          color: Colors.white.withAlpha(26),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Date: ${DateFormat('MMM dd, yyyy').format(selectedDate)}', style: const TextStyle(color: Colors.white)),
+            Text(
+              'Date: ${DateFormat('MMM dd, yyyy').format(selectedDate)}',
+              style: const TextStyle(color: Colors.white),
+            ),
             const Icon(Icons.calendar_today, color: Color(0xFFFFB800)),
           ],
         ),
@@ -399,22 +481,33 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
     );
   }
 
-  Widget _buildTimePicker(BuildContext context, String label, TimeOfDay time, Function(TimeOfDay) onTimeSelected) {
+  Widget _buildTimePicker(
+    BuildContext context,
+    String label,
+    TimeOfDay time,
+    Function(TimeOfDay) onTimeSelected,
+  ) {
     return InkWell(
       onTap: () async {
-        final selected = await showTimePicker(context: context, initialTime: time);
+        final selected = await showTimePicker(
+          context: context,
+          initialTime: time,
+        );
         if (selected != null) onTimeSelected(selected);
       },
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.1),
+          color: Colors.white.withAlpha(26),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('$label: ${time.format(context)}', style: const TextStyle(color: Colors.white)),
+            Text(
+              '$label: ${time.format(context)}',
+              style: const TextStyle(color: Colors.white),
+            ),
             const Icon(Icons.access_time, color: Color(0xFFFFB800)),
           ],
         ),
@@ -431,7 +524,7 @@ class _SchedulingScreenState extends State<SchedulingScreen> {
         labelText: 'Session Type',
         labelStyle: const TextStyle(color: Colors.white70),
         filled: true,
-        fillColor: Colors.white.withOpacity(0.1),
+        fillColor: Colors.white.withAlpha(26),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
       ),
       items: ['Class', 'Mastery Session', 'Study Group', 'PSL Meeting']
