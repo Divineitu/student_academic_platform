@@ -398,44 +398,6 @@ Our app strictly follows ALU's official branding guidelines:
 - No external dependencies for basic operation
 - Meets assignment requirements for basic data management
 
-### Optional Enhancement Paths
-
-**Option 1: SharedPreferences** (Lightweight)
-```dart
-// Save data
-final prefs = await SharedPreferences.getInstance();
-await prefs.setString('sessions', jsonEncode(sessionsList));
-
-// Load data
-final String? sessionsJson = prefs.getString('sessions');
-if (sessionsJson != null) {
-  L🤝 GitHub Collaboration & Contributions
-
-### Team Contribution Guidelines
-
-**Branch Strategy:**
-- Each team member works on their own feature branch
-- Meaningful commit messages describing changes
-- Regular commits showing incremental progress
-- Pull requests for code review before merging
-
-**Visible Contributions:**
-All team members have contributed to the project with clear commit history:
-- **Divine Okon Itu** - Project Lead → Navigation & GitHub setup
-- **Jongkuch Isaac Chol Anyar** - Dashboard & Attendance logic
-- **Julie Isaro** - Assignment management system
-- **Mahlet Assefa Tilahun** - Scheduling & calendar features
-- **Rwema Gisa** - Documentation & coordination
-
-**Contribution Tracker:**
-We maintain a detailed contribution tracker (as required) documenting:
-- Individual technical contributions
-- Feature implementation ownership
-- Debugging and problem-solving efforts
-- Code reviews and collaborative work
-
-## 📝 Reflection & Problem-Solving
-
 ### Challenges Encountered & Solutions
 
 **1. State Management Across Multiple Screens**
