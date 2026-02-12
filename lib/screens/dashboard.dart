@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../models/assignment.dart';
 import '../models/session.dart';
 import '../services/attendance_service.dart';
 import '../widgets/stats_card.dart';
-import '../utils/date_utils.dart' as date_utils;
 import 'profile.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -27,10 +27,7 @@ class DashboardScreen extends StatelessWidget {
   }
 
   String getTodayDate() {
-    return date_utils.AppDateUtils.formatDate(
-      DateTime.now(),
-      format: 'EEEE, MMM dd, yyyy',
-    );
+    return DateFormat('EEEE, MMM dd, yyyy').format(DateTime.now());
   }
 
   int getPendingCount() {
@@ -38,10 +35,7 @@ class DashboardScreen extends StatelessWidget {
   }
 
   List<Session> getTodaySessions() {
-    String today = date_utils.AppDateUtils.formatDate(
-      DateTime.now(),
-      format: 'MMM dd, yyyy',
-    );
+    String today = DateFormat('MMM dd, yyyy').format(DateTime.now());
     return sessions.where((s) => s.date == today).toList();
   }
 
@@ -52,7 +46,7 @@ class DashboardScreen extends StatelessWidget {
     return assignments.where((assignment) {
       if (assignment.isCompleted) return false;
       try {
-        DateTime dueDate = date_utils.AppDateUtils.parse(assignment.dueDate);
+        DateTime dueDate = DateFormat('MMM dd, yyyy').parse(assignment.dueDate);
         return dueDate.isAfter(now.subtract(const Duration(days: 1))) &&
             dueDate.isBefore(weekFromNow.add(const Duration(days: 1)));
       } catch (e) {
@@ -115,7 +109,7 @@ class DashboardScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.1),
+        color: Colors.white.withOpacity(0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -127,11 +121,7 @@ class DashboardScreen extends StatelessWidget {
               children: [
                 Text(
                   getTodayDate(),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 4),
                 Text(
@@ -164,11 +154,7 @@ class DashboardScreen extends StatelessWidget {
               children: [
                 const Text(
                   'AT RISK WARNING',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 4),
                 Text(
@@ -190,9 +176,7 @@ class DashboardScreen extends StatelessWidget {
           child: StatsCard(
             value: '${attendance.toInt()}%',
             label: 'Attendance',
-            backgroundColor: attendance >= 75
-                ? const Color(0xFF4CAF50)
-                : const Color(0xFFD32F2F),
+            backgroundColor: attendance >= 75 ? const Color(0xFF4CAF50) : const Color(0xFFD32F2F),
           ),
         ),
         const SizedBox(width: 12),
@@ -214,11 +198,7 @@ class DashboardScreen extends StatelessWidget {
       children: [
         const Text(
           'Today\'s Classes',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 10),
         if (todaySessions.isEmpty)
@@ -236,19 +216,13 @@ class DashboardScreen extends StatelessWidget {
       children: [
         const Text(
           'Assignments Due Soon',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 10),
         if (upcoming.isEmpty)
           _buildEmptyCard('No upcoming assignments')
         else
-          ...upcoming
-              .take(5)
-              .map((assignment) => _buildAssignmentCard(assignment)),
+          ...upcoming.take(5).map((assignment) => _buildAssignmentCard(assignment)),
       ],
     );
   }
@@ -257,14 +231,11 @@ class DashboardScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.1),
+        color: Colors.white.withOpacity(0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Center(
-        child: Text(
-          message,
-          style: const TextStyle(color: Colors.white70, fontSize: 14),
-        ),
+        child: Text(message, style: const TextStyle(color: Colors.white70, fontSize: 14)),
       ),
     );
   }
@@ -274,7 +245,7 @@ class DashboardScreen extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.1),
+        color: Colors.white.withOpacity(0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -292,24 +263,11 @@ class DashboardScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  session.title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Text(session.title, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 4),
-                Text(
-                  '${session.startTime} - ${session.endTime}',
-                  style: const TextStyle(color: Colors.white70, fontSize: 14),
-                ),
+                Text('${session.startTime} - ${session.endTime}', style: const TextStyle(color: Colors.white70, fontSize: 14)),
                 if (session.location.isNotEmpty)
-                  Text(
-                    session.location,
-                    style: const TextStyle(color: Colors.white70, fontSize: 12),
-                  ),
+                  Text(session.location, style: const TextStyle(color: Colors.white70, fontSize: 12)),
               ],
             ),
           ),
@@ -322,14 +280,14 @@ class DashboardScreen extends StatelessWidget {
     Color priorityColor = assignment.priority == 'High'
         ? const Color(0xFFD32F2F)
         : assignment.priority == 'Medium'
-        ? const Color(0xFFFFA000)
-        : const Color(0xFF4CAF50);
+            ? const Color(0xFFFFA000)
+            : const Color(0xFF4CAF50);
 
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.1),
+        color: Colors.white.withOpacity(0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -340,34 +298,18 @@ class DashboardScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  assignment.title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Text(assignment.title, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 4),
-                Text(
-                  assignment.course,
-                  style: const TextStyle(color: Colors.white70, fontSize: 14),
-                ),
+                Text(assignment.course, style: const TextStyle(color: Colors.white70, fontSize: 14)),
               ],
             ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
-                assignment.dueDate,
-                style: const TextStyle(color: Color(0xFFFFB800), fontSize: 14),
-              ),
+              Text(assignment.dueDate, style: const TextStyle(color: Color(0xFFFFB800), fontSize: 14)),
               const SizedBox(height: 4),
-              Text(
-                assignment.priority,
-                style: TextStyle(color: priorityColor, fontSize: 12),
-              ),
+              Text(assignment.priority, style: TextStyle(color: priorityColor, fontSize: 12)),
             ],
           ),
         ],
